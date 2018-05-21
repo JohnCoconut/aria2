@@ -35,6 +35,7 @@
 #include "NameResolver.h"
 
 #include <cstring>
+#include <iostream>
 
 #include "DlAbortEx.h"
 #include "message.h"
@@ -54,6 +55,10 @@ void NameResolver::resolve(std::vector<std::string>& resolvedAddresses,
   int s;
   s = callGetaddrinfo(&res, hostname.c_str(), nullptr, family_, socktype_, 0,
                       0);
+  std::cout << "hostname: " << hostname << '\n'
+    << "family: " << family_ << '\n'
+    << "socktype: " << socktype_ << '\n';
+
   if (s) {
     throw DL_ABORT_EX2(
         fmt(EX_RESOLVE_HOSTNAME, hostname.c_str(), gai_strerror(s)),
